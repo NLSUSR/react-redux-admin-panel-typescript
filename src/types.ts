@@ -1,8 +1,34 @@
-import { Document, Schema } from "mongoose";
 import { Request, Response } from "express";
+import { Document, Schema } from "mongoose";
+
+export type TDrinkType =
+  | "water"
+  | "juice"
+  | "coctail"
+  | "alcohol"
+  | "beer"
+  | "soda"
+  | "tea"
+  | "coffee";
+
+export type TFoodType =
+  | "soup"
+  | "garnish"
+  | "kebab"
+  | "meat"
+  | "bird"
+  | "fish"
+  | "seafood"
+  | "salad"
+  | "fruit"
+  | "vegetables"
+  | "dairy"
+  | "bakery";
 
 export type TDrink = Document & {
   name: string;
+  drinkType: TDrinkType;
+  alcohol: number;
   availability: boolean;
   partialVolume: number;
   fullVolume: number;
@@ -15,6 +41,7 @@ export type TDrink = Document & {
 
 export type TFood = Document & {
   name: string;
+  foodType: TFoodType;
   availability: boolean;
   weight: number;
   manufacturer: string;
@@ -25,35 +52,19 @@ export type TFood = Document & {
 
 export type TMenu = Document & {
   menuName: string;
-  drinks: {
-    strongDrinks: TDrink[];
-    tea: TDrink[];
-    coffee: TDrink[];
-    beer: TDrink[];
-  };
-  hotDishes: {
-    barbecue: TFood[];
-    soup: TFood[];
-  };
-  snacks: {
-    hot: TFood[];
-    other: TFood[];
-  };
+  drink: TDrink[];
+  food: TFood[];
 };
 
 export type TFlower = Document & {
   name: string;
   availability: boolean;
+  floraType: "flower" | "bouquet";
   quantity: number;
   manufacturer: string;
   description: string;
   price: number;
   photo: string;
-};
-
-export type TFlora = Document & {
-  bouquets: TFlower[];
-  single: TFlower[];
 };
 
 export type TOrder = Document & {
@@ -67,16 +78,10 @@ export type TReserve = Document & {
   establishment: string;
   tableNumber: number;
   user: string;
-  startTime: {
-    hours: number;
-    minutes: number;
-  };
-  endTime: {
-    hours: number;
-    minutes: number;
-  };
+  startTime: string;
+  endTime?: string;
   order: TOrder[];
-  flora: TFlora[];
+  flower: TFlower[];
 };
 
 export type TTable = Document & {
@@ -93,7 +98,6 @@ export type TTable = Document & {
 
 export type TSchemas =
   | Schema<TDrink>
-  | Schema<TFlora>
   | Schema<TFlower>
   | Schema<TFood>
   | Schema<TMenu>
@@ -102,13 +106,21 @@ export type TSchemas =
   | Schema<TTable>;
 
 export type TData = TDrink &
-  TFlora &
   TFlower &
   TFood &
   TMenu &
   TOrder &
   TReserve &
   TTable;
+
+export type TTypes =
+  | TDrink
+  | TFlower
+  | TFood
+  | TMenu
+  | TOrder
+  | TReserve
+  | TTable;
 
 export type TGenerator = {
   endpoint: string;
@@ -143,3 +155,5 @@ export type TModel = {
   ) => Promise<TData | null>;
   findByIdAndDelete: (id: string) => Promise<TData | null>;
 };
+
+export type TPickExclude<T> = Pick<T, Exclude<keyof T, keyof Document>>;

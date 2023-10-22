@@ -1,90 +1,230 @@
-import { rootAction } from "../actions/root-action";
-import { AppDispatch } from "..";
 import axios, { AxiosResponse } from "axios";
-import * as Types from "@types";
+import { AppDispatch, rootAction } from "..";
+import * as Types from "../../../types";
 
 const { dataActions } = rootAction();
-const resource = "http://brontosaur.ru/api";
 
-const get = async (endpoint: string) => {
-  return await axios.get(`${resource + endpoint}`).then((r) => {
-    return r.data;
-  });
+const endpoints = {
+  resource: "http://brontosaur.ru/api",
+  food: "/food",
+  drink: "/drink",
+  menu: "/menu",
+  flower: "/flower",
+  order: "/order",
+  reserve: "/reserve",
+  table: "/table",
+};
+
+const create = async (endpoint: string, data: Types.TTypes) => {
+  return await axios.post(`${endpoints.resource + endpoint}`, data);
+};
+
+const read = async (endpoint: string) => {
+  return await axios.get(`${endpoints.resource + endpoint}`);
+};
+
+const update = async (endpoint: string, data: Types.TTypes) => {
+  return await axios.put(`${endpoints.resource + endpoint}`, data);
+};
+
+const _delete = async (endpoint: string, id: string) => {
+  return await axios.delete(`${endpoints.resource + endpoint + "/" + id}`);
 };
 
 export const rootDispatcher = () => ({
-  getFood: () => {
-    return (dispatch: AppDispatch) => {
-      get("/food")
-        .then((r: AxiosResponse<Types.IFood>) => {
-          dispatch(dataActions.food({ resolved: r }));
-        })
-        .catch((e: string) => dispatch(dataActions.food({ rejected: e })));
-    };
-  },
-  getDrink: () => {
-    return (dispatch: AppDispatch) => {
-      get("/drink")
-        .then((r: AxiosResponse<Types.IDrink>) => {
-          dispatch(dataActions.drink({ resolved: r }));
-        })
-        .catch((e: string) => dispatch(dataActions.drink({ rejected: e })));
-    };
-  },
-  getMenu: () => {
-    return (dispatch: AppDispatch) => {
-      get("/menu")
-        .then((r: AxiosResponse<Types.IMenu>) => {
-          dispatch(dataActions.menu({ resolved: r }));
-        })
-        .catch((e: string) => dispatch(dataActions.menu({ rejected: e })));
+  createFood: (food: Types.TFood) => {
+    return () => {
+      create(endpoints.food, food);
     };
   },
 
-  getFlower: () => {
+  readFood: () => {
     return (dispatch: AppDispatch) => {
-      get("/flower")
-        .then((r: AxiosResponse<Types.IFlower>) => {
-          dispatch(dataActions.flower({ resolved: r }));
+      read(endpoints.food)
+        .then((r: AxiosResponse<Types.TFood>) => {
+          dispatch(dataActions.food({ resolved: r.data }));
         })
-        .catch((e: string) => dispatch(dataActions.flower({ rejected: e })));
-    };
-  },
-  getFlora: () => {
-    return (dispatch: AppDispatch) => {
-      get("/flora")
-        .then((r: AxiosResponse<Types.IFlora>) => {
-          dispatch(dataActions.flora({ resolved: r }));
-        })
-        .catch((e: string) => dispatch(dataActions.flora({ rejected: e })));
+        .catch((e) => dispatch(dataActions.food({ rejected: e })));
     };
   },
 
-  getOrder: () => {
-    return (dispatch: AppDispatch) => {
-      get("/order")
-        .then((r: AxiosResponse<Types.IOrder>) => {
-          dispatch(dataActions.order({ resolved: r }));
-        })
-        .catch((e: string) => dispatch(dataActions.order({ rejected: e })));
+  updateFood: (food: Types.TFood) => {
+    return () => {
+      update(endpoints.food, food);
     };
   },
-  getReserve: () => {
-    return (dispatch: AppDispatch) => {
-      get("/reserve")
-        .then((r: AxiosResponse<Types.IReserve>) => {
-          dispatch(dataActions.reserve({ resolved: r }));
-        })
-        .catch((e: string) => dispatch(dataActions.reserve({ rejected: e })));
+
+  deleteFood: (id: string) => {
+    return () => {
+      _delete(endpoints.food, id);
     };
   },
-  getTable: () => {
+
+  createDrink: (drink: Types.TDrink) => {
+    return () => {
+      create(endpoints.drink, drink);
+    };
+  },
+
+  readDrink: () => {
     return (dispatch: AppDispatch) => {
-      get("/table")
-        .then((r: AxiosResponse<Types.ITable>) => {
-          dispatch(dataActions.table({ resolved: r }));
+      read(endpoints.drink)
+        .then((r: AxiosResponse<Types.TDrink>) => {
+          dispatch(dataActions.drink({ resolved: r.data }));
         })
-        .catch((e: string) => dispatch(dataActions.table({ rejected: e })));
+        .catch((e) => dispatch(dataActions.drink({ rejected: e })));
+    };
+  },
+
+  updateDrink: (drink: Types.TDrink) => {
+    return () => {
+      update(endpoints.drink, drink);
+    };
+  },
+
+  deleteDrink: (id: string) => {
+    return () => {
+      _delete(endpoints.drink, id);
+    };
+  },
+
+  createMenu: (menu: Types.TMenu) => {
+    return () => {
+      create(endpoints.menu, menu);
+    };
+  },
+
+  readMenu: () => {
+    return (dispatch: AppDispatch) => {
+      read(endpoints.menu)
+        .then((r: AxiosResponse<Types.TMenu>) => {
+          dispatch(dataActions.menu({ resolved: r.data }));
+        })
+        .catch((e) => dispatch(dataActions.menu({ rejected: e })));
+    };
+  },
+
+  updateMenu: (menu: Types.TMenu) => {
+    return () => {
+      update(endpoints.menu, menu);
+    };
+  },
+
+  deleteMenu: (id: string) => {
+    return () => {
+      _delete(endpoints.menu, id);
+    };
+  },
+
+  createFlower: (flower: Types.TFlower) => {
+    return () => {
+      create(endpoints.flower, flower);
+    };
+  },
+
+  readFlower: () => {
+    return (dispatch: AppDispatch) => {
+      read(endpoints.flower)
+        .then((r: AxiosResponse<Types.TFlower>) => {
+          dispatch(dataActions.flower({ resolved: r.data }));
+        })
+        .catch((e) => dispatch(dataActions.flower({ rejected: e })));
+    };
+  },
+
+  updateFlower: (flower: Types.TFlower) => {
+    return () => {
+      update(endpoints.flower, flower);
+    };
+  },
+
+  deleteFlower: (id: string) => {
+    return () => {
+      _delete(endpoints.flower, id);
+    };
+  },
+
+  createOrder: (order: Types.TOrder) => {
+    return () => {
+      create(endpoints.order, order);
+    };
+  },
+
+  readOrder: () => {
+    return (dispatch: AppDispatch) => {
+      read(endpoints.order)
+        .then((r: AxiosResponse<Types.TOrder>) => {
+          dispatch(dataActions.order({ resolved: r.data }));
+        })
+        .catch((e) => dispatch(dataActions.order({ rejected: e })));
+    };
+  },
+
+  updateOrder: (order: Types.TOrder) => {
+    return () => {
+      update(endpoints.order, order);
+    };
+  },
+
+  deleteOrder: (id: string) => {
+    return () => {
+      _delete(endpoints.order, id);
+    };
+  },
+
+  createReserve: (reserve: Types.TReserve) => {
+    return () => {
+      create(endpoints.reserve, reserve);
+    };
+  },
+
+  readReserve: () => {
+    return (dispatch: AppDispatch) => {
+      read(endpoints.reserve)
+        .then((r: AxiosResponse<Types.TReserve>) => {
+          dispatch(dataActions.reserve({ resolved: r.data }));
+        })
+        .catch((e) => dispatch(dataActions.reserve({ rejected: e })));
+    };
+  },
+
+  updateReserve: (reserve: Types.TReserve) => {
+    return () => {
+      update(endpoints.reserve, reserve);
+    };
+  },
+
+  deleteReserve: (id: string) => {
+    return () => {
+      _delete(endpoints.reserve, id);
+    };
+  },
+
+  createTable: (table: Types.TTable) => {
+    return () => {
+      create(endpoints.table, table);
+    };
+  },
+
+  readTable: () => {
+    return (dispatch: AppDispatch) => {
+      read(endpoints.table)
+        .then((r: AxiosResponse<Types.TTable>) => {
+          dispatch(dataActions.table({ resolved: r.data }));
+        })
+        .catch((e) => dispatch(dataActions.table({ rejected: e })));
+    };
+  },
+
+  updateTable: (table: Types.TTable) => {
+    return () => {
+      update(endpoints.table, table);
+    };
+  },
+
+  deleteTable: (id: string) => {
+    return () => {
+      _delete(endpoints.table, id);
     };
   },
 });

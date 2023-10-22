@@ -1,22 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IMenu } from "@types";
+import { TMenu } from "../../../types";
 
-const initialState: Partial<IMenu> = {
+const initialState: Partial<TMenu> = {
   menuName: "",
-  drinks: {
-    strongDrinks: [],
-    tea: [],
-    coffee: [],
-    beer: [],
-  },
-  hotDishes: {
-    barbecue: [],
-    soup: [],
-  },
-  snacks: {
-    hot: [],
-    other: [],
-  },
+  drink: [],
+  food: [],
 };
 
 export const menuSlice = createSlice({
@@ -26,29 +14,11 @@ export const menuSlice = createSlice({
     setMenuName: (state, action) => {
       state.menuName = action.payload;
     },
-    addStrongDrink: (state, action) => {
-      state.drinks!.strongDrinks.push(action.payload);
+    addDrink: (state, action) => {
+      state.drink!.push(action.payload);
     },
-    addTea: (state, action) => {
-      state.drinks!.tea.push(action.payload);
-    },
-    addCoffee: (state, action) => {
-      state.drinks!.coffee.push(action.payload);
-    },
-    addBeer: (state, action) => {
-      state.drinks!.beer.push(action.payload);
-    },
-    addBarbecue: (state, action) => {
-      state.hotDishes!.barbecue.push(action.payload);
-    },
-    addSoup: (state, action) => {
-      state.hotDishes!.soup.push(action.payload);
-    },
-    addHotSnack: (state, action) => {
-      state.snacks!.hot.push(action.payload);
-    },
-    addOtherSnack: (state, action) => {
-      state.snacks!.other.push(action.payload);
+    addFood: (state, action) => {
+      state.food!.push(action.payload);
     },
   },
 });

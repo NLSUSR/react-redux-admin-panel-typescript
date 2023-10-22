@@ -5,32 +5,16 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "paths": {
-      // "@app/*": ["./src/alpha_app/*"],
-      // "@processes/*": ["./src/bravo_processes/*"],
-      // "@pages/*": ["./src/charlie_pages/*"],
-      // "@widgets/*": ["./src/delta_widgets/*"],
-      // "@features/*": ["./src/echo_features/*"],
-      // "@entities/*": ["./src/foxtrot_entities/*"],
-      // "@shared/*": ["./src/golf_shared/*"],
-      "@types":["./src/types.ts"],
-      // "@actions":["./src/golf_shared/store/actions/root-action.ts"],
-      // "@dispatcher":["./src/golf_shared/store/dispatchers/root-dispatcher.ts"]
-    }
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -1,69 +1,41 @@
 import { useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import { Allocator } from "../../bravo_processes/allocator/allocator";
+import { Footer } from "../../delta_widgets/footer/footer";
+import { Header } from "../../delta_widgets/header/header";
+import { Main } from "../../delta_widgets/main/main";
 import { useAppDispatch } from "../../golf_shared/store";
 import { rootDispatcher } from "../../golf_shared/store/dispatchers/root-dispatcher";
-import css from "./app.module.sass";
 
 export function App() {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const link = (link: string) => {
-    navigate(link);
-  };
 
   const {
-    getDrink,
-    getFlora,
-    getFlower,
-    getFood,
-    getMenu,
-    getOrder,
-    getReserve,
-    getTable,
+    readDrink,
+    readFlower,
+    readFood,
+    readMenu,
+    readOrder,
+    readReserve,
+    readTable,
   } = rootDispatcher();
 
   useEffect(() => {
     [
-      getDrink,
-      getFlora,
-      getFlower,
-      getFood,
-      getMenu,
-      getOrder,
-      getReserve,
-      getTable,
+      readDrink,
+      readFlower,
+      readFood,
+      readMenu,
+      readOrder,
+      readReserve,
+      readTable,
     ].forEach((e) => dispatch(e()));
     // eslint-disable-next-line
   }, []);
 
-  const array = [
-    { schema: "Заказ", link: "/order" },
-    { schema: "Столик", link: "/table" },
-    { schema: "Резерв", link: "/reserve" },
-    { schema: "Флора", link: "/flora" },
-    { schema: "Цветы", link: "/flower" },
-    { schema: "Питье", link: "/drink" },
-    { schema: "Еда", link: "/food" },
-    { schema: "Меню", link: "/menu" },
-  ];
-
   return (
     <section>
-      <Container fluid>
-        <ul className={css.list}>
-          {array.map((e, i) => {
-            return (
-              <li key={i}>
-                <Button onClick={() => link(e.link)}>{e.schema}</Button>
-              </li>
-            );
-          })}
-        </ul>
-      </Container>
-      <Allocator />
+      <Header />
+      <Main />
+      <Footer />
     </section>
   );
 }
