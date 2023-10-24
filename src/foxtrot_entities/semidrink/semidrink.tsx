@@ -1,21 +1,29 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { v4 } from "uuid";
-import { rootAction, useAppDispatch } from "../../golf_shared/store";
-import { TDrink, TDrinkType, TPickExclude } from "../../types";
+import * as Store from "../../golf_shared/store";
+import * as Types from "../../types";
 import css from "../entities.module.css";
+import { Seminutrients } from "../seminutrients/seminutrients";
 
 export const Semidrink = () => {
-  const [state, setState] = useState<TPickExclude<TDrink>>({} as TDrink);
+  const seminutrients = Store.useAppSelector(
+    (s) => s.semicomponentReducer.seminutrients
+  );
 
-  const dispatch = useAppDispatch();
-  const { semicomponentActions } = rootAction();
+  const [state, setState] = useState<Types.TPickExclude<Types.TDrink>>(
+    {} as Types.TDrink
+  );
+
+  const dispatch = Store.useAppDispatch();
+  const { semicomponentActions } = Store.rootAction();
 
   useEffect(() => {
+    setState({ ...state, nutrients: seminutrients });
     dispatch(semicomponentActions.setDrink(state));
-  }, [dispatch, semicomponentActions, state]);
+  }, [dispatch, semicomponentActions, state, seminutrients]);
 
-  const drinkType: TDrinkType[] = [
+  const drinkType: Types.TDrinkType[] = [
     "water",
     "juice",
     "coctail",
@@ -44,10 +52,10 @@ export const Semidrink = () => {
       />
       <Form.Select
         onChange={(e) =>
-          setState({ ...state, drinkType: e.target.value as TDrinkType })
+          setState({ ...state, drinkType: e.target.value as Types.TDrinkType })
         }
       >
-        {drinkType.map((e: TDrinkType) => {
+        {drinkType.map((e: Types.TDrinkType) => {
           return (
             <option key={v4()} value={e}>
               {e}
@@ -120,6 +128,7 @@ export const Semidrink = () => {
         value={state.photo}
         onChange={(e) => setState({ ...state, photo: String(e.target.value) })}
       />
+      <Seminutrients />
     </Form.Group>
   );
 };

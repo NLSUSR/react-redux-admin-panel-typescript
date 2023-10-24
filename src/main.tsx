@@ -6,7 +6,7 @@ import { App } from "./alpha_app/app/app";
 import { getStore } from "./golf_shared/store";
 import "./index.css";
 
-createRoot(document.querySelector("#root")!).render(
+createRoot(document.querySelector("#root") as Element).render(
   <StrictMode>
     <Provider store={getStore}>
       <BrowserRouter>

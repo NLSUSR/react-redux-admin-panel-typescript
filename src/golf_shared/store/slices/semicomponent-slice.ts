@@ -8,6 +8,7 @@ type TSemicomponent = {
   semiorder: Types.TOrder;
   semireserve: Types.TReserve;
   semitable: Types.TTable;
+  seminutrients: Types.TNutrients;
 };
 
 const initialState: Partial<TSemicomponent> = {
@@ -17,6 +18,7 @@ const initialState: Partial<TSemicomponent> = {
   semiorder: undefined,
   semireserve: undefined,
   semitable: undefined,
+  seminutrients: undefined,
 };
 
 export const semicomponentSlice = createSlice({
@@ -40,6 +42,9 @@ export const semicomponentSlice = createSlice({
     },
     setTable: (state, action) => {
       state.semitable = action.payload;
+    },
+    setNutrients: (state, action) => {
+      state.seminutrients = action.payload;
     },
   },
 });

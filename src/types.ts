@@ -122,6 +122,15 @@ export type TData = TDrink &
   TReserve &
   TTable;
 
+export type TTypes =
+  | TDrink
+  | TFlower
+  | TFood
+  | TMenu
+  | TOrder
+  | TReserve
+  | TTable;
+
 export type TGenerator = {
   endpoint: string;
   collection: string;
