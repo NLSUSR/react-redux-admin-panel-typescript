@@ -25,6 +25,13 @@ export type TFoodType =
   | "dairy"
   | "bakery";
 
+export type TNutrients = Document & {
+  calories: number;
+  proteins: number;
+  fats: number;
+  carbonhydrates: number;
+};
+
 export type TDrink = Document & {
   name: string;
   drinkType: TDrinkType;
@@ -37,6 +44,7 @@ export type TDrink = Document & {
   partialPrice: number;
   fullPrice: number;
   photo: string;
+  nutrients?: Partial<TNutrients>;
 };
 
 export type TFood = Document & {
@@ -48,6 +56,7 @@ export type TFood = Document & {
   description: string;
   price: number;
   photo: string;
+  nutrients?: Partial<TNutrients>;
 };
 
 export type TMenu = Document & {
@@ -113,15 +122,6 @@ export type TData = TDrink &
   TReserve &
   TTable;
 
-export type TTypes =
-  | TDrink
-  | TFlower
-  | TFood
-  | TMenu
-  | TOrder
-  | TReserve
-  | TTable;
-
 export type TGenerator = {
   endpoint: string;
   collection: string;
@@ -130,7 +130,7 @@ export type TGenerator = {
 
 export type TController = {
   create: (req: Request, res: Response) => void;
-  readAll: (res: Response) => void;
+  readAll: (req: Request, res: Response) => void;
   readOne: (req: Request, res: Response) => void;
   update: (req: Request, res: Response) => void;
   delete: (req: Request, res: Response) => void;

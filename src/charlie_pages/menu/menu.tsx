@@ -6,7 +6,7 @@ import { Semifood } from "../../foxtrot_entities/semifood/semifood";
 import { useAppDispatch, useAppSelector } from "../../golf_shared/store";
 import { rootDispatcher } from "../../golf_shared/store/dispatchers/root-dispatcher";
 import { TDrink, TFood, TMenu, TPickExclude } from "../../types";
-import sass from "./menu.module.sass";
+import css from "./menu.module.css";
 
 export const Menu = () => {
   const dispatch = useAppDispatch();
@@ -51,7 +51,7 @@ export const Menu = () => {
 
   return (
     <Container fluid>
-      <Form className={sass.menu__form}>
+      <Form className={css.menu__form}>
         <Form.Control
           placeholder="Название меню"
           value={state.menuName}

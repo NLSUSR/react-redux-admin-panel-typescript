@@ -3,7 +3,7 @@ import { Button, Form } from "react-bootstrap";
 import { Cards } from "../../echo_features/cards/cards";
 import * as Store from "../../golf_shared/store";
 import * as Types from "../../types";
-import sass from "../entities.module.sass";
+import css from "../entities.module.css";
 import { Semireserve } from "../semireserve/semireserve";
 
 export const Semitable = () => {
@@ -41,7 +41,7 @@ export const Semitable = () => {
   };
 
   return (
-    <Form.Group className={sass.group}>
+    <Form.Group className={css.group}>
       <Form.Control
         type="text"
         placeholder="Заведение"

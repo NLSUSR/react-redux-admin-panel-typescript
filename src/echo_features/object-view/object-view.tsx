@@ -1,28 +1,28 @@
 import { v4 } from "uuid";
 import { TTypes } from "../../types";
-import sass from "./object-view.module.sass";
+import css from "./object-view.module.css";
 
 export const ObjectView = ({ object }: { object: TTypes }) => {
   return (
-    <table className={sass.table}>
-      <thead className={sass.head}>
-        <tr className={sass.tread}>
-          <td className={sass.datacell}>
-            <p className={sass.datacell__key}>Ключ</p>
+    <table className={css.table}>
+      <thead className={css.head}>
+        <tr className={css.tread}>
+          <td className={css.datacell}>
+            <p className={css.datacell__key}>Ключ</p>
           </td>
-          <td className={sass.datacell}>
-            <p className={sass.datacell__value}>Значение</p>
+          <td className={css.datacell}>
+            <p className={css.datacell__value}>Значение</p>
           </td>
         </tr>
       </thead>
-      <tbody className={sass.body}>
+      <tbody className={css.body}>
         {Object.entries(object).map(([key, value]) => (
-          <tr className={sass.tread} key={v4()}>
-            <td className={sass.datacell}>
-              <p className={sass.datacell__key}>{String(key)}</p>
+          <tr className={css.tread} key={v4()}>
+            <td className={css.datacell}>
+              <p className={css.datacell__key}>{String(key)}</p>
             </td>
-            <td className={sass.datacell}>
-              <p className={sass.datacell__value}>{String(value)}</p>
+            <td className={css.datacell}>
+              <p className={css.datacell__value}>{String(value)}</p>
             </td>
           </tr>
         ))}

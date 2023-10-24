@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { v4 } from "uuid";
 import { rootAction, useAppDispatch } from "../../golf_shared/store";
 import { TFood, TFoodType, TPickExclude } from "../../types";
-import sass from "../entities.module.sass";
+import css from "../entities.module.css";
 
 export const Semifood = () => {
   const [state, setState] = useState<TPickExclude<TFood>>({} as TFood);
@@ -31,7 +31,7 @@ export const Semifood = () => {
   ];
 
   return (
-    <Form.Group className={sass.group}>
+    <Form.Group className={css.group}>
       <Form.Control
         type="text"
         placeholder="Название"

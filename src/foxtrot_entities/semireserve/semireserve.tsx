@@ -4,7 +4,7 @@ import { Cards } from "../../echo_features/cards/cards";
 import * as Store from "../../golf_shared/store";
 import * as Types from "../../types";
 import { getCurrentDateTime } from "../current-time";
-import sass from "../entities.module.sass";
+import css from "../entities.module.css";
 import { Semiflower } from "../semiflower/semiflower";
 import { Semiorder } from "../semiorder/semiorder";
 
@@ -57,7 +57,7 @@ export const Semireserve = () => {
   };
 
   return (
-    <RBS.Form.Group className={sass.group}>
+    <RBS.Form.Group className={css.group}>
       <RBS.Form.Control
         type="text"
         placeholder="Заведение"

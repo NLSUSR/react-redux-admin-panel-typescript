@@ -3,63 +3,63 @@ import * as Types from "../../../types";
 
 type TDataSlice = {
   menu: {
-    resolved: undefined | Types.TMenu[];
-    rejected: undefined | string;
+    resolved: Types.TMenu[];
+    rejected: string;
   };
   food: {
-    resolved: undefined | Types.TFood[];
-    rejected: undefined | string;
+    resolved: Types.TFood[];
+    rejected: string;
   };
   drink: {
-    resolved: undefined | Types.TDrink[];
-    rejected: undefined | string;
+    resolved: Types.TDrink[];
+    rejected: string;
   };
   flower: {
-    resolved: undefined | Types.TFlower[];
-    rejected: undefined | string;
+    resolved: Types.TFlower[];
+    rejected: string;
   };
   order: {
-    resolved: undefined | Types.TOrder[];
-    rejected: undefined | string;
+    resolved: Types.TOrder[];
+    rejected: string;
   };
   reserve: {
-    resolved: undefined | Types.TReserve[];
-    rejected: undefined | string;
+    resolved: Types.TReserve[];
+    rejected: string;
   };
   table: {
-    resolved: undefined | Types.TTable[];
-    rejected: undefined | string;
+    resolved: Types.TTable[];
+    rejected: string;
   };
 };
 
-const initialState: TDataSlice = {
+const initialState: Partial<TDataSlice> = {
   menu: {
-    resolved: undefined,
-    rejected: undefined,
+    resolved: [],
+    rejected: "",
   },
   food: {
-    resolved: undefined,
-    rejected: undefined,
+    resolved: [],
+    rejected: "",
   },
   drink: {
-    resolved: undefined,
-    rejected: undefined,
+    resolved: [],
+    rejected: "",
   },
   flower: {
-    resolved: undefined,
-    rejected: undefined,
+    resolved: [],
+    rejected: "",
   },
   order: {
-    resolved: undefined,
-    rejected: undefined,
+    resolved: [],
+    rejected: "",
   },
   reserve: {
-    resolved: undefined,
-    rejected: undefined,
+    resolved: [],
+    rejected: "",
   },
   table: {
-    resolved: undefined,
-    rejected: undefined,
+    resolved: [],
+    rejected: "",
   },
 };
 
@@ -68,32 +68,32 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     food: (state, action) => {
-      state.food.resolved = action.payload.resolved.data;
-      state.food.rejected = action.payload.rejected;
+      state.food!.resolved = action.payload.resolved.data;
+      state.food!.rejected = action.payload.rejected;
     },
     drink: (state, action) => {
-      state.drink.resolved = action.payload.resolved.data;
-      state.drink.rejected = action.payload.rejected;
+      state.drink!.resolved = action.payload.resolved.data;
+      state.drink!.rejected = action.payload.rejected;
     },
     menu: (state, action) => {
-      state.menu.resolved = action.payload.resolved.data;
-      state.menu.rejected = action.payload.rejected;
+      state.menu!.resolved = action.payload.resolved.data;
+      state.menu!.rejected = action.payload.rejected;
     },
     flower: (state, action) => {
-      state.flower.resolved = action.payload.resolved.data;
-      state.flower.rejected = action.payload.rejected;
+      state.flower!.resolved = action.payload.resolved.data;
+      state.flower!.rejected = action.payload.rejected;
     },
     order: (state, action) => {
-      state.order.resolved = action.payload.resolved.data;
-      state.order.rejected = action.payload.rejected;
+      state.order!.resolved = action.payload.resolved.data;
+      state.order!.rejected = action.payload.rejected;
     },
     reserve: (state, action) => {
-      state.reserve.resolved = action.payload.resolved.data;
-      state.reserve.rejected = action.payload.rejected;
+      state.reserve!.resolved = action.payload.resolved.data;
+      state.reserve!.rejected = action.payload.rejected;
     },
     table: (state, action) => {
-      state.table.resolved = action.payload.resolved.data;
-      state.table.rejected = action.payload.rejected;
+      state.table!.resolved = action.payload.resolved.data;
+      state.table!.rejected = action.payload.rejected;
     },
   },
 });

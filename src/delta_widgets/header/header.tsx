@@ -1,7 +1,7 @@
 import { Button, ButtonGroup, Container } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { v4 } from "uuid";
-import sass from "./header.module.sass";
+import css from "./header.module.css";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const Header = () => {
   return (
     <header>
       <Container fluid>
-        <ButtonGroup className={sass.list}>
+        <ButtonGroup className={css.list}>
           {array.map((e) => {
             return (
               <Button

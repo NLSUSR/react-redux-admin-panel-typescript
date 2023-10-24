@@ -2,7 +2,7 @@ import { Button, Card } from "react-bootstrap";
 import { v4 } from "uuid";
 import { TTypes } from "../../types";
 import { ObjectView } from "../object-view/object-view";
-import sass from "./cards.module.sass";
+import css from "./cards.module.css";
 
 export const Cards = ({
   array,
@@ -12,7 +12,7 @@ export const Cards = ({
   remove: (i: number) => void;
 }) => {
   return (
-    <div className={sass.cards}>
+    <div className={css.cards}>
       {array.map((e, i) => {
         return (
           <Card key={v4()} style={{ width: "18rem" }}>

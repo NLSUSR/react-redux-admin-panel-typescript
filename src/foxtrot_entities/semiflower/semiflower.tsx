@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { rootAction, useAppDispatch } from "../../golf_shared/store";
 import { TFlower, TPickExclude } from "../../types";
-import sass from "../entities.module.sass";
+import css from "../entities.module.css";
 
 export const Semiflower = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ export const Semiflower = () => {
   }, [dispatch, semicomponentActions, state]);
 
   return (
-    <Form.Group className={sass.group}>
+    <Form.Group className={css.group}>
       <Form.Control
         type="text"
         placeholder="Название"
