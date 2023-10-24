@@ -27,7 +27,7 @@
   "name": "admin-panel",
   "private": true,
   "scripts": {
-    "dev": "vite --open"
+    "start": "vite --open"
   },
   "type": "module",
   "version": "1.0.0"
