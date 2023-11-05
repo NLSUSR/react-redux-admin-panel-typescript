@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { rootAction, useAppDispatch } from "../../golf_shared/store";
+import { rootAction, useDispatch_ } from "../../golf_shared/store";
 import { TNutrients, TPickExclude } from "../../types";
 import css from "../entities.module.css";
 
 export const Seminutrients = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch_();
   const { semicomponentActions } = rootAction();
 
   const [state, setState] = useState<TPickExclude<TNutrients>>(

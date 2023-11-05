@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Cards } from "../../echo_features/cards/cards";
 import * as Store from "../../golf_shared/store";
 import * as Types from "../../types";
 import css from "../entities.module.css";
-import { Semireserve } from "../semireserve/semireserve";
+import { v4 } from "uuid";
 
 export const Semitable = () => {
-  const reserve = Store.useAppSelector(
-    (s) => s.semicomponentReducer.semireserve
-  );
+  const reserves = Store.useSelector_((s) => s.dataReducer.reserve!.resolved);
 
-  const dispatch = Store.useAppDispatch();
+  const dispatch = Store.useDispatch_();
   const { semicomponentActions } = Store.rootAction();
 
   const [state, setState] = useState<Types.TPickExclude<Types.TTable>>({
-    reserve: [] as Types.TReserve[],
+    reserve: [] as string[],
     places: {
       chairs: Number(),
       sofas: Number(),
@@ -26,17 +24,17 @@ export const Semitable = () => {
     dispatch(semicomponentActions.setTable(state));
   }, [dispatch, semicomponentActions, state]);
 
-  const addReserve = () => {
+  const addReserve = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      reserve: [...prevState.reserve, reserve as Types.TReserve],
+      reserve: [...prevState.reserve, _id],
     }));
   };
 
-  const deleteReserve = (index: number) => {
+  const deleteReserve = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      reserve: prevState.reserve.filter((_e, i) => i !== index),
+      reserve: prevState.reserve.filter((e) => e !== _id),
     }));
   };
 
@@ -50,7 +48,6 @@ export const Semitable = () => {
           setState({ ...state, establishment: String(e.target.value) })
         }
       />
-
       <Form.Control
         type="number"
         placeholder="Номер столика"
@@ -59,19 +56,19 @@ export const Semitable = () => {
           setState({ ...state, tableNumber: Number(e.target.value) })
         }
       />
-
       <Form.Control
         type="text"
         placeholder="Клиент"
         value={state.user}
         onChange={(e) => setState({ ...state, user: String(e.target.value) })}
       />
-
-      <Form.Label>Брони</Form.Label>
-      <Semireserve />
-      <Button children={"Добавить бронь"} onClick={addReserve} />
-      <Cards array={state.reserve} remove={deleteReserve} />
-
+      <Form.Label>Резервы</Form.Label>
+      <ul>
+        {state.reserve.map((e) => {
+          return <li key={v4()}>{e}</li>;
+        })}
+      </ul>
+      <Cards array={reserves} add={addReserve} remove={deleteReserve} />
       <Form.Control
         type="number"
         placeholder="Стулья"
@@ -86,7 +83,6 @@ export const Semitable = () => {
           }))
         }
       />
-
       <Form.Control
         type="number"
         placeholder="Диваны"
@@ -101,7 +97,6 @@ export const Semitable = () => {
           }))
         }
       />
-
       <Form.Control
         type="text"
         placeholder="Фото"

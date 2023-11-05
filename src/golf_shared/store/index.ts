@@ -1,29 +1,29 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import * as RR from "react-redux";
 import { combineReducers } from "redux";
+import { authSlice } from "./slices/auth-slice";
 import { dataSlice } from "./slices/data-slice";
-import { menuSlice } from "./slices/menu-slice";
 import { semicomponentSlice } from "./slices/semicomponent-slice";
 
 export const rootAction = () => ({
   dataActions: dataSlice.actions,
-  menuActions: menuSlice.actions,
   semicomponentActions: semicomponentSlice.actions,
+  authActions: authSlice.actions,
 });
 
 export const rootReducer = combineReducers({
   dataReducer: dataSlice.reducer,
-  menuReducer: menuSlice.reducer,
   semicomponentReducer: semicomponentSlice.reducer,
+  authReducer: authSlice.reducer,
 });
 
-export const getStore = configureStore({
+export const rootStore = configureStore({
   reducer: rootReducer,
   devTools: true,
 });
 
-export type RootState = ReturnType<typeof getStore.getState>;
-export type AppDispatch = typeof getStore.dispatch;
+export type RootState = ReturnType<typeof rootStore.getState>;
+export type AppDispatch = typeof rootStore.dispatch;
 
-export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useDispatch_: () => AppDispatch = RR.useDispatch;
+export const useSelector_: RR.TypedUseSelectorHook<RootState> = RR.useSelector;

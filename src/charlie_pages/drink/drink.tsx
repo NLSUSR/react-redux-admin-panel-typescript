@@ -1,13 +1,13 @@
 import { Button, Container, Form } from "react-bootstrap";
 import { Semidrink } from "../../foxtrot_entities/semidrink/semidrink";
-import { useAppDispatch, useAppSelector } from "../../golf_shared/store";
+import { useDispatch_, useSelector_ } from "../../golf_shared/store";
 import { rootDispatcher } from "../../golf_shared/store/dispatchers/root-dispatcher";
 import { TDrink } from "../../types";
 
 export const Drink = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch_();
   const { createDrink } = rootDispatcher();
-  const drink = useAppSelector((s) => s.semicomponentReducer.semidrink);
+  const drink = useSelector_((s) => s.semicomponentReducer.semidrink);
 
   return (
     <Container fluid>

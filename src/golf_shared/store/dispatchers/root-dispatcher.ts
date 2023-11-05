@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { AppDispatch, rootAction } from "..";
 import * as Types from "../../../types";
 
-const { dataActions } = rootAction();
+const { dataActions, authActions } = rootAction();
 
 const endpoints = {
   resource: "http://brontosaur.ru/api",
@@ -31,7 +31,54 @@ const _delete = async (endpoint: string, id: string) => {
   return await axios.delete(`${endpoints.resource + endpoint + "/" + id}`);
 };
 
+const signup = async (data: Types.TCredentials) => {
+  return await axios.post("http://brontosaur.ru/auth/signup", data);
+};
+
+const signin = async (data: Types.TCredentials) => {
+  return await axios.post("http://brontosaur.ru/auth/signin", data);
+};
+
+export type TResponse = {
+  data: {
+    success: boolean;
+    message: AxiosResponse<Types.TTypes | string>;
+  };
+};
+
 export const rootDispatcher = () => ({
+  signup: (data: Types.TCredentials) => {
+    return (dispatch: AppDispatch) => {
+      signup(data)
+        .then((r: { data: { success: boolean; message: unknown } }) =>
+          r.data.success
+            ? dispatch(authActions.signup({ resolved: r.data }))
+            : null
+        )
+        .catch((e) => dispatch(authActions.signup({ rejected: e })));
+    };
+  },
+
+  signin: (data: Types.TCredentials) => {
+    return (dispatch: AppDispatch) => {
+      signin(data)
+        .then((r: { data: { success: boolean; message: unknown } }) =>
+          r.data.success
+            ? dispatch(authActions.signin({ resolved: r.data.message }))
+            : null
+        )
+        .catch((e) => dispatch(authActions.signin({ rejected: e })));
+    };
+  },
+
+  signout: () => {
+    return () => {};
+  },
+
+  signdown: () => {
+    return () => {};
+  },
+
   createFood: (food: Types.TFood) => {
     return () => {
       create(endpoints.food, food);
@@ -41,10 +88,12 @@ export const rootDispatcher = () => ({
   readFood: () => {
     return (dispatch: AppDispatch) => {
       read(endpoints.food)
-        .then((r: AxiosResponse<Types.TFood>) => {
-          dispatch(dataActions.food({ resolved: r.data }));
-        })
-        .catch((e) => dispatch(dataActions.food({ rejected: e })));
+        .then((r: TResponse) =>
+          r.data.success
+            ? dispatch(dataActions.food({ resolved: r.data.message }))
+            : null
+        )
+        .catch((e: string) => dispatch(dataActions.food({ rejected: e })));
     };
   },
 
@@ -69,9 +118,11 @@ export const rootDispatcher = () => ({
   readDrink: () => {
     return (dispatch: AppDispatch) => {
       read(endpoints.drink)
-        .then((r: AxiosResponse<Types.TDrink>) => {
-          dispatch(dataActions.drink({ resolved: r.data }));
-        })
+        .then((r: TResponse) =>
+          r.data.success
+            ? dispatch(dataActions.drink({ resolved: r.data.message }))
+            : null
+        )
         .catch((e) => dispatch(dataActions.drink({ rejected: e })));
     };
   },
@@ -97,9 +148,11 @@ export const rootDispatcher = () => ({
   readMenu: () => {
     return (dispatch: AppDispatch) => {
       read(endpoints.menu)
-        .then((r: AxiosResponse<Types.TMenu>) => {
-          dispatch(dataActions.menu({ resolved: r.data }));
-        })
+        .then((r: TResponse) =>
+          r.data.success
+            ? dispatch(dataActions.menu({ resolved: r.data.message }))
+            : null
+        )
         .catch((e) => dispatch(dataActions.menu({ rejected: e })));
     };
   },
@@ -125,9 +178,11 @@ export const rootDispatcher = () => ({
   readFlower: () => {
     return (dispatch: AppDispatch) => {
       read(endpoints.flower)
-        .then((r: AxiosResponse<Types.TFlower>) => {
-          dispatch(dataActions.flower({ resolved: r.data }));
-        })
+        .then((r: TResponse) =>
+          r.data.success
+            ? dispatch(dataActions.flower({ resolved: r.data.message }))
+            : null
+        )
         .catch((e) => dispatch(dataActions.flower({ rejected: e })));
     };
   },
@@ -153,9 +208,11 @@ export const rootDispatcher = () => ({
   readOrder: () => {
     return (dispatch: AppDispatch) => {
       read(endpoints.order)
-        .then((r: AxiosResponse<Types.TOrder>) => {
-          dispatch(dataActions.order({ resolved: r.data }));
-        })
+        .then((r: TResponse) =>
+          r.data.success
+            ? dispatch(dataActions.order({ resolved: r.data.message }))
+            : null
+        )
         .catch((e) => dispatch(dataActions.order({ rejected: e })));
     };
   },
@@ -181,9 +238,11 @@ export const rootDispatcher = () => ({
   readReserve: () => {
     return (dispatch: AppDispatch) => {
       read(endpoints.reserve)
-        .then((r: AxiosResponse<Types.TReserve>) => {
-          dispatch(dataActions.reserve({ resolved: r.data }));
-        })
+        .then((r: TResponse) =>
+          r.data.success
+            ? dispatch(dataActions.reserve({ resolved: r.data.message }))
+            : null
+        )
         .catch((e) => dispatch(dataActions.reserve({ rejected: e })));
     };
   },
@@ -209,9 +268,11 @@ export const rootDispatcher = () => ({
   readTable: () => {
     return (dispatch: AppDispatch) => {
       read(endpoints.table)
-        .then((r: AxiosResponse<Types.TTable>) => {
-          dispatch(dataActions.table({ resolved: r.data }));
-        })
+        .then((r: TResponse) =>
+          r.data.success
+            ? dispatch(dataActions.table({ resolved: r.data.message }))
+            : null
+        )
         .catch((e) => dispatch(dataActions.table({ rejected: e })));
     };
   },

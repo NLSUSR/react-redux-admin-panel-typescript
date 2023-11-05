@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { Footer } from "../../delta_widgets/footer/footer";
 import { Header } from "../../delta_widgets/header/header";
 import { Main } from "../../delta_widgets/main/main";
-import { useAppDispatch } from "../../golf_shared/store";
+import { useDispatch_ } from "../../golf_shared/store";
 import { rootDispatcher } from "../../golf_shared/store/dispatchers/root-dispatcher";
 
 export function App() {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch_();
 
   const {
     readDrink,

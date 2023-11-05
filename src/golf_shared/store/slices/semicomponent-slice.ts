@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as Types from "../../../types";
 
-type TSemicomponent = {
+type TSemicomponentSlice = {
   semidrink: Types.TDrink;
   semifood: Types.TFood;
   semiflower: Types.TFlower;
@@ -9,9 +9,10 @@ type TSemicomponent = {
   semireserve: Types.TReserve;
   semitable: Types.TTable;
   seminutrients: Types.TNutrients;
+  semisign: Types.TCredentials;
 };
 
-const initialState: Partial<TSemicomponent> = {
+const initialState: Partial<TSemicomponentSlice> = {
   semidrink: undefined,
   semifood: undefined,
   semiflower: undefined,
@@ -19,6 +20,7 @@ const initialState: Partial<TSemicomponent> = {
   semireserve: undefined,
   semitable: undefined,
   seminutrients: undefined,
+  semisign: undefined,
 };
 
 export const semicomponentSlice = createSlice({
@@ -45,6 +47,9 @@ export const semicomponentSlice = createSlice({
     },
     setNutrients: (state, action) => {
       state.seminutrients = action.payload;
+    },
+    setSign: (state, action) => {
+      state.semisign = action.payload;
     },
   },
 });

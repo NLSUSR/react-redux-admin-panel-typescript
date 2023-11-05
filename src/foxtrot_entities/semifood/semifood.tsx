@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { v4 } from "uuid";
 import * as Store from "../../golf_shared/store";
 import * as Types from "../../types";
 import css from "../entities.module.css";
 import { Seminutrients } from "../seminutrients/seminutrients";
 
 export const Semifood = () => {
-  const seminutrients = Store.useAppSelector(
+  const seminutrients = Store.useSelector_(
     (s) => s.semicomponentReducer.seminutrients
   );
 
@@ -15,7 +14,7 @@ export const Semifood = () => {
     {} as Types.TFood
   );
 
-  const dispatch = Store.useAppDispatch();
+  const dispatch = Store.useDispatch_();
   const { semicomponentActions } = Store.rootAction();
 
   useEffect(() => {
@@ -63,11 +62,7 @@ export const Semifood = () => {
         }
       >
         {foodTypes.map((e: Types.TFoodType) => {
-          return (
-            <option key={v4()} value={e}>
-              {e}
-            </option>
-          );
+          return <option key={e} value={e} children={e} />;
         })}
       </Form.Select>
       <Form.Control

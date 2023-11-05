@@ -61,8 +61,8 @@ export type TFood = Document & {
 
 export type TMenu = Document & {
   menuName: string;
-  drink: TDrink[];
-  food: TFood[];
+  drink: string[];
+  food: string[];
 };
 
 export type TFlower = Document & {
@@ -89,15 +89,15 @@ export type TReserve = Document & {
   user: string;
   startTime: string;
   endTime?: string;
-  order: TOrder[];
-  flower: TFlower[];
+  order: string[];
+  flower: string[];
 };
 
 export type TTable = Document & {
   establishment: string;
   tableNumber: number;
   user: string;
-  reserve: TReserve[];
+  reserve: string[];
   places: {
     chairs: number;
     sofas: number;
@@ -166,3 +166,8 @@ export type TModel = {
 };
 
 export type TPickExclude<T> = Pick<T, Exclude<keyof T, keyof Document>>;
+
+export type TCredentials = {
+  phone: string;
+  password: string;
+};

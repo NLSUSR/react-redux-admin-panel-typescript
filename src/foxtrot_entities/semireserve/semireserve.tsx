@@ -5,11 +5,10 @@ import * as Store from "../../golf_shared/store";
 import * as Types from "../../types";
 import { getCurrentDateTime } from "../current-time";
 import css from "../entities.module.css";
-import { Semiflower } from "../semiflower/semiflower";
-import { Semiorder } from "../semiorder/semiorder";
+import { v4 } from "uuid";
 
 export const Semireserve = () => {
-  const dispatch = Store.useAppDispatch();
+  const dispatch = Store.useDispatch_();
   const { semicomponentActions } = Store.rootAction();
 
   const [startDate, setStartDate] = useState(getCurrentDateTime());
@@ -17,42 +16,42 @@ export const Semireserve = () => {
   const [state, setState] = useState<Types.TPickExclude<Types.TReserve>>({
     startTime: startDate,
     endTime: endDate,
-    order: [] as Types.TOrder[],
-    flower: [] as Types.TFlower[],
+    order: [] as string[],
+    flower: [] as string[],
   } as Types.TReserve);
 
   useEffect(() => {
     dispatch(semicomponentActions.setReserve(state));
   }, [dispatch, semicomponentActions, state]);
 
-  const order = Store.useAppSelector((s) => s.semicomponentReducer.semiorder);
-  const flower = Store.useAppSelector((s) => s.semicomponentReducer.semiflower);
+  const orders = Store.useSelector_((s) => s.dataReducer.order!.resolved);
+  const flowers = Store.useSelector_((s) => s.dataReducer.flower!.resolved);
 
-  const addOrder = () => {
+  const addOrder = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      order: [...prevState.order, order as Types.TOrder],
+      order: [...prevState.order, _id],
     }));
   };
 
-  const addFlower = () => {
+  const addFlower = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      flower: [...prevState.flower, flower as Types.TFlower],
+      flower: [...prevState.flower, _id],
     }));
   };
 
-  const deleteOrder = (index: number) => {
+  const deleteOrder = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      order: prevState.order.filter((_e, i) => i !== index),
+      order: prevState.order.filter((e) => e !== _id),
     }));
   };
 
-  const deleteFlower = (index: number) => {
+  const deleteFlower = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      flower: prevState.flower.filter((_e, i) => i !== index),
+      flower: prevState.flower.filter((e) => e !== _id),
     }));
   };
 
@@ -99,13 +98,19 @@ export const Semireserve = () => {
         />
       </RBS.Form.Group>
       <RBS.Form.Label>Заказы</RBS.Form.Label>
-      <Semiorder />
-      <RBS.Button children={"Добавить заказ"} onClick={addOrder} />
-      <Cards array={state.order} remove={deleteOrder} />
+      <ul>
+        {state.order.map((e) => {
+          return <li key={v4()}>{e}</li>;
+        })}
+      </ul>
+      <Cards array={orders} add={addOrder} remove={deleteOrder} />
       <RBS.Form.Label>Цветы</RBS.Form.Label>
-      <Semiflower />
-      <RBS.Button children={"Добавить цветы"} onClick={addFlower} />
-      <Cards array={state.flower} remove={deleteFlower} />
+      <ul>
+        {state.flower.map((e) => {
+          return <li key={v4()}>{e}</li>;
+        })}
+      </ul>
+      <Cards array={flowers} add={addFlower} remove={deleteFlower} />
     </RBS.Form.Group>
   );
 };

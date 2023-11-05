@@ -68,31 +68,31 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     food: (state, action) => {
-      state.food!.resolved = action.payload.resolved.data;
+      state.food!.resolved = action.payload.resolved;
       state.food!.rejected = action.payload.rejected;
     },
     drink: (state, action) => {
-      state.drink!.resolved = action.payload.resolved.data;
+      state.drink!.resolved = action.payload.resolved;
       state.drink!.rejected = action.payload.rejected;
     },
     menu: (state, action) => {
-      state.menu!.resolved = action.payload.resolved.data;
+      state.menu!.resolved = action.payload.resolved;
       state.menu!.rejected = action.payload.rejected;
     },
     flower: (state, action) => {
-      state.flower!.resolved = action.payload.resolved.data;
+      state.flower!.resolved = action.payload.resolved;
       state.flower!.rejected = action.payload.rejected;
     },
     order: (state, action) => {
-      state.order!.resolved = action.payload.resolved.data;
+      state.order!.resolved = action.payload.resolved;
       state.order!.rejected = action.payload.rejected;
     },
     reserve: (state, action) => {
-      state.reserve!.resolved = action.payload.resolved.data;
+      state.reserve!.resolved = action.payload.resolved;
       state.reserve!.rejected = action.payload.rejected;
     },
     table: (state, action) => {
-      state.table!.resolved = action.payload.resolved.data;
+      state.table!.resolved = action.payload.resolved;
       state.table!.rejected = action.payload.rejected;
     },
   },

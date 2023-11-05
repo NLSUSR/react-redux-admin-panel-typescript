@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import { Cards } from "../../echo_features/cards/cards";
-import { Semidrink } from "../../foxtrot_entities/semidrink/semidrink";
-import { Semifood } from "../../foxtrot_entities/semifood/semifood";
-import { useAppDispatch, useAppSelector } from "../../golf_shared/store";
+import { useDispatch_, useSelector_ } from "../../golf_shared/store";
 import { rootDispatcher } from "../../golf_shared/store/dispatchers/root-dispatcher";
-import { TDrink, TFood, TMenu, TPickExclude } from "../../types";
+import { TMenu, TPickExclude } from "../../types";
 import css from "./menu.module.css";
+import { v4 } from "uuid";
 
 export const Menu = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch_();
   const { createMenu } = rootDispatcher();
 
-  const drink = useAppSelector((s) => s.semicomponentReducer.semidrink);
-  const food = useAppSelector((s) => s.semicomponentReducer.semifood);
+  const drink = useSelector_((s) => s.dataReducer.drink!.resolved);
+  const food = useSelector_((s) => s.dataReducer.food!.resolved);
 
   const [state, setState] = useState<TPickExclude<TMenu>>({
     menuName: "",
@@ -21,31 +20,31 @@ export const Menu = () => {
     food: [],
   });
 
-  const addDrink = () => {
+  const addDrink = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      drink: [...prevState.drink, drink as TDrink],
+      drink: [...prevState.drink, _id],
     }));
   };
 
-  const deleteDrink = (index: number) => {
+  const addFood = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      drink: prevState.drink.filter((_e, i) => i !== index),
+      food: [...prevState.food, _id],
     }));
   };
 
-  const addFood = () => {
+  const deleteDrink = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      food: [...prevState.food, food as TFood],
+      drink: prevState.drink.filter((e) => e !== _id),
     }));
   };
 
-  const deleteFood = (index: number) => {
+  const deleteFood = (_id: string) => {
     setState((prevState) => ({
       ...prevState,
-      food: prevState.food.filter((_e, i) => i !== index),
+      food: prevState.food.filter((e) => e !== _id),
     }));
   };
 
@@ -60,13 +59,19 @@ export const Menu = () => {
           }
         />
         <Form.Label>Напитки</Form.Label>
-        <Semidrink />
-        <Button children={"Добавить напиток"} onClick={addDrink} />
-        <Cards array={state.drink} remove={deleteDrink} />
+        <ul>
+          {state.drink.map((e) => {
+            return <li key={v4()}>{e}</li>;
+          })}
+        </ul>
+        <Cards array={drink} add={addDrink} remove={deleteDrink} />
         <Form.Label>Еда</Form.Label>
-        <Semifood />
-        <Button children={"Добавить еду"} onClick={addFood} />
-        <Cards array={state.food} remove={deleteFood} />
+        <ul>
+          {state.food.map((e) => {
+            return <li key={v4()}>{e}</li>;
+          })}
+        </ul>
+        <Cards array={food} add={addFood} remove={deleteFood} />
         <Button
           variant="primary"
           type="submit"

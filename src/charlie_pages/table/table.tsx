@@ -1,13 +1,13 @@
 import { Button, Container, Form } from "react-bootstrap";
 import { Semitable } from "../../foxtrot_entities/semitable/semitable";
-import { useAppDispatch, useAppSelector } from "../../golf_shared/store";
+import { useDispatch_, useSelector_ } from "../../golf_shared/store";
 import { rootDispatcher } from "../../golf_shared/store/dispatchers/root-dispatcher";
 import { TTable } from "../../types";
 
 export const Table = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch_();
   const { createTable } = rootDispatcher();
-  const table = useAppSelector((s) => s.semicomponentReducer.semitable);
+  const table = useSelector_((s) => s.semicomponentReducer.semitable);
 
   return (
     <Container fluid>
