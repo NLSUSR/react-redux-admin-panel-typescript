@@ -12,6 +12,7 @@ export const Signup = () => {
 
   return (
     <Form className={css.form}>
+      <Form.Label>Регистрация</Form.Label>
       <Semisign />
       <Button
         type="submit"
