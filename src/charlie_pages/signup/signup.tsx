@@ -11,7 +11,7 @@ export const Signup = () => {
   const semisign = useSelector_((s) => s.semicomponentReducer.semisign);
 
   return (
-    <Form className={css.form}>
+    <Form className={css.form} >
       <Form.Label>Регистрация</Form.Label>
       <Semisign />
       <Button

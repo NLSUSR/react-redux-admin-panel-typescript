@@ -24,10 +24,12 @@
     "uuid": "^9.0.1",
     "vite": "^4.4.5"
   },
+  "main": "./index.ts",
   "name": "admin-panel",
   "private": true,
   "scripts": {
-    "start": "vite --open"
+    "start": "vite --open",
+    "setup": "npm i"
   },
   "type": "module",
   "version": "1.0.0"

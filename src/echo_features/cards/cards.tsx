@@ -21,7 +21,7 @@ export const Cards = ({
             <Card.Body>
               <ObjectView object={e} />
             </Card.Body>
-            <div style={{display:"flex",justifyContent:"space-between"}}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button
                 style={{ margin: "1rem" }}
                 onClick={() => add!(e._id)}

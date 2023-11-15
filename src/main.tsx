@@ -6,7 +6,9 @@ import { App } from "./alpha_app/app/app";
 import { rootStore } from "./golf_shared/store";
 import "./index.css";
 
-createRoot(document.querySelector("#root") as Element).render(
+export const rootElement: HTMLElement = document.getElementById("root")!;
+
+export const content = (
   <StrictMode>
     <Provider store={rootStore}>
       <BrowserRouter>
@@ -15,3 +17,5 @@ createRoot(document.querySelector("#root") as Element).render(
     </Provider>
   </StrictMode>
 );
+
+window !== undefined ? createRoot(rootElement).render(content) : null;
